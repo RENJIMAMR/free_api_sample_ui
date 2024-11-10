@@ -72,7 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
                           onPressed: () {
                             // Delete the product from the list
                             _deleteProduct(index);
@@ -99,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Icon(Icons.add),
         tooltip: "Add Product",
+        backgroundColor: Colors.green,
       ),
     );
   }

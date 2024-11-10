@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:token_test/global_widgets/custom_textfield.dart';
+import 'package:token_test/global_widgets/refactored_button.dart';
 import 'package:token_test/view/login_screen/login_screen.dart';
 
 class RegistrationScreen extends StatelessWidget {
@@ -18,33 +19,44 @@ class RegistrationScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: "Name")),
-            TextField(
-                controller: phoneController,
-                decoration: InputDecoration(labelText: "Phone")),
-            TextField(
-                controller: placeController,
-                decoration: InputDecoration(labelText: "Place")),
-            TextField(
-                controller: pincodeController,
-                decoration: InputDecoration(labelText: "Pincode")),
-            TextField(
-                controller: emailController,
-                decoration: InputDecoration(labelText: "Email")),
-            TextField(
-                controller: passwordController,
-                decoration: InputDecoration(labelText: "Password"),
-                obscureText: true),
+            CustomTextField(
+              controller: nameController,
+              label: "Name",
+            ),
+            CustomTextField(
+              controller: phoneController,
+              label: "Phone",
+              isNumber: true,
+            ),
+            CustomTextField(
+              controller: placeController,
+              label: "Place",
+            ),
+            CustomTextField(
+              controller: pincodeController,
+              label: "Pincode",
+              isNumber: true,
+            ),
+            CustomTextField(
+              controller: emailController,
+              label: "Email",
+              keyboardType: TextInputType.emailAddress, // For email input
+            ),
+            CustomTextField(
+              controller: passwordController,
+              label: "Password",
+              isNumber: false,
+            ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
+            RefactoredButton(
+              label: "Register",
+              onTap: () {
                 // Implement registration logic here
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
-              child: Text("Register"),
             ),
           ],
         ),

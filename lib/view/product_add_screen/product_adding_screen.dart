@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:token_test/global_widgets/refactored_button.dart';
 import 'package:token_test/model/product_model.dart';
+import 'package:token_test/global_widgets/custom_textfield.dart'; // Assuming this is the file where CustomTextField is defined.
 
 class ProductAddScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
@@ -35,20 +37,17 @@ class ProductAddScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            refactoredTextField(nameController, "Product Name"),
-            refactoredTextField(descriptionController, "Description"),
-            refactoredTextField(priceController, "Price"),
-            refactoredTextField(stockController, "Stock", isNumber: true),
-            refactoredTextField(categoryController, "Category"),
+            CustomTextField(controller: nameController, label: "Product Name"),
+            CustomTextField(
+                controller: descriptionController, label: "Description"),
+            CustomTextField(controller: priceController, label: "Price"),
+            CustomTextField(
+                controller: stockController, label: "Stock", isNumber: true),
+            CustomTextField(controller: categoryController, label: "Category"),
             SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onPressed: () {
+            RefactoredButton(
+              label: "Add Product",
+              onTap: () {
                 // Validation and creating the product
                 if (nameController.text.isEmpty ||
                     descriptionController.text.isEmpty ||
@@ -78,35 +77,9 @@ class ProductAddScreen extends StatelessWidget {
                 // Return the new product to the previous screen
                 Navigator.pop(context, newProduct);
               },
-              child: Text("Add Product", style: TextStyle(fontSize: 16)),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget refactoredTextField(TextEditingController controller, String label,
-      {bool isNumber = false}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(color: Colors.grey),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.grey, width: 1.5),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.green, width: 2),
-          ),
-        ),
-        keyboardType: isNumber
-            ? TextInputType.numberWithOptions(decimal: true)
-            : TextInputType.text,
       ),
     );
   }

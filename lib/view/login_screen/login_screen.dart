@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:token_test/global_widgets/custom_textfield.dart';
+import 'package:token_test/global_widgets/refactored_button.dart';
 import 'package:token_test/view/home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -13,21 +15,27 @@ class LoginScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-                controller: emailController,
-                decoration: InputDecoration(labelText: "Email")),
-            TextField(
-                controller: passwordController,
-                decoration: InputDecoration(labelText: "Password"),
-                obscureText: true),
+            CustomTextField(
+              controller: emailController,
+              label: "Email",
+              keyboardType:
+                  TextInputType.emailAddress, // Optional, for email input
+            ),
+            CustomTextField(
+              controller: passwordController,
+              label: "Password",
+              isNumber: false,
+            ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
+            RefactoredButton(
+              label: "Login",
+              onTap: () {
                 // Implement login logic here
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
               },
-              child: Text("Login"),
             ),
           ],
         ),

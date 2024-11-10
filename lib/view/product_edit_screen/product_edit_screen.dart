@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:token_test/global_widgets/custom_textfield.dart';
+import 'package:token_test/global_widgets/refactored_button.dart';
 import 'package:token_test/model/product_model.dart';
 
 class ProductEditScreen extends StatelessWidget {
@@ -25,25 +27,32 @@ class ProductEditScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: "Name")),
-            TextField(
-                controller: descriptionController,
-                decoration: InputDecoration(labelText: "Description")),
-            TextField(
-                controller: priceController,
-                decoration: InputDecoration(labelText: "Price")),
-            TextField(
-                controller: stockController,
-                decoration: InputDecoration(labelText: "Stock"),
-                keyboardType: TextInputType.number),
-            TextField(
-                controller: categoryController,
-                decoration: InputDecoration(labelText: "Category")),
+            CustomTextField(
+              controller: nameController,
+              label: "Name",
+            ),
+            CustomTextField(
+              controller: descriptionController,
+              label: "Description",
+            ),
+            CustomTextField(
+              controller: priceController,
+              label: "Price",
+            ),
+            CustomTextField(
+              controller: stockController,
+              label: "Stock",
+              isNumber: true, // Stock is a number
+              keyboardType: TextInputType.number,
+            ),
+            CustomTextField(
+              controller: categoryController,
+              label: "Category",
+            ),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
+            RefactoredButton(
+              label: "Save Changes",
+              onTap: () {
                 // Update product instance with edited details
                 product.name = nameController.text;
                 product.description = descriptionController.text;
@@ -54,7 +63,6 @@ class ProductEditScreen extends StatelessWidget {
                 // Process updated product (e.g., save changes to database)
                 Navigator.pop(context); // Navigate back after editing product
               },
-              child: Text("Save Changes"),
             ),
           ],
         ),
