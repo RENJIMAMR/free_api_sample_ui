@@ -26,7 +26,6 @@ class RegistrationScreen extends StatelessWidget {
             CustomTextField(
               controller: phoneController,
               label: "Phone",
-              isNumber: true,
             ),
             CustomTextField(
               controller: placeController,
@@ -35,7 +34,6 @@ class RegistrationScreen extends StatelessWidget {
             CustomTextField(
               controller: pincodeController,
               label: "Pincode",
-              isNumber: true,
             ),
             CustomTextField(
               controller: emailController,
@@ -45,7 +43,6 @@ class RegistrationScreen extends StatelessWidget {
             CustomTextField(
               controller: passwordController,
               label: "Password",
-              isNumber: false,
             ),
             SizedBox(height: 20),
             RefactoredButton(
@@ -57,6 +54,13 @@ class RegistrationScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
               },
+            ),
+            SizedBox(height: 20),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // navigate back to login screen
+              },
+              child: Text("Alredy have an account? LOGIN Now"),
             ),
           ],
         ),

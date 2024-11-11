@@ -38,11 +38,9 @@ class ProductAddScreen extends StatelessWidget {
         child: ListView(
           children: [
             CustomTextField(controller: nameController, label: "Product Name"),
-            CustomTextField(
-                controller: descriptionController, label: "Description"),
+            CustomTextField(controller: descriptionController, label: "Description"),
             CustomTextField(controller: priceController, label: "Price"),
-            CustomTextField(
-                controller: stockController, label: "Stock", isNumber: true),
+            CustomTextField(controller: stockController, label: "Stock"),
             CustomTextField(controller: categoryController, label: "Category"),
             SizedBox(height: 20),
             RefactoredButton(
@@ -57,25 +55,6 @@ class ProductAddScreen extends StatelessWidget {
                   _showErrorDialog(context, 'Please fill in all fields.');
                   return;
                 }
-
-                int? stock;
-                try {
-                  stock = int.parse(stockController.text);
-                } catch (e) {
-                  _showErrorDialog(context, 'Stock must be a valid integer.');
-                  return;
-                }
-
-                Product newProduct = Product(
-                  name: nameController.text,
-                  description: descriptionController.text,
-                  price: priceController.text,
-                  stock: stock,
-                  category: categoryController.text,
-                );
-
-                // Return the new product to the previous screen
-                Navigator.pop(context, newProduct);
               },
             ),
           ],

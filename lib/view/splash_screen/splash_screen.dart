@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'package:token_test/view/registration_screen/registration_screen.dart';
+import 'package:token_test/view/login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,9 +13,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 3), () {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegistrationScreen()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     });
   }
@@ -24,8 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          Center(child: Text('Splash Screen', style: TextStyle(fontSize: 24))),
+      body: Center(child: Text('Splash Screen', style: TextStyle(fontSize: 24))),
     );
   }
 }

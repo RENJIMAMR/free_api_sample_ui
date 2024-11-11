@@ -4,13 +4,11 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final TextInputType keyboardType;
-  final bool isNumber;
 
   CustomTextField({
     required this.controller,
     required this.label,
     this.keyboardType = TextInputType.text,
-    this.isNumber = false,
   });
 
   @override
@@ -19,9 +17,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         controller: controller,
-        keyboardType: isNumber
-            ? TextInputType.numberWithOptions(decimal: true)
-            : keyboardType,
+        keyboardType: keyboardType,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(color: Colors.grey),
