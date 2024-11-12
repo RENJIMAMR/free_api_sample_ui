@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:token_test/controller/login_screen_controller.dart';
 import 'package:token_test/global_widgets/custom_textfield.dart';
 import 'package:token_test/global_widgets/refactored_button.dart';
-import 'package:token_test/main.dart';
+
 import 'package:token_test/view/home_screen/home_screen.dart';
 import 'package:token_test/view/registration_screen/registration_screen.dart'; // Import the registration screen
 
@@ -31,26 +31,56 @@ class LoginScreen extends StatelessWidget {
               label: "Password",
             ),
             SizedBox(height: 20),
-            RefactoredButton(
-              label: "Login",
-              onTap: () async {
-                // Implement login logic here
-                if (emailController.text.isNotEmpty &&
-                    passwordController.text.isNotEmpty) {
-                  await context.read<LoginScreenController>().onLogin(
-                      email: emailController.text,
-                      password: passwordController.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text("Enter Valid Credentials")));
-                }
-              },
-            ),
+            Consumer<LoginScreenController>(
+                builder: (context, loginProv, child) {
+              return loginProv.isLoading == true
+                  ? CircularProgressIndicator()
+                  : RefactoredButton(
+                      label: "Login",
+                      onTap: () async {
+                        if (emailController.text.isNotEmpty &&
+                            passwordController.text.isNotEmpty) {
+                          bool? loginSuccess = await context
+                              .read<LoginScreenController>()
+                              .onLogin(
+                                  context: context,
+                                  email: emailController.text,
+                                  password: passwordController.text);
+
+                          if (loginSuccess == true) {
+                            // Check explicitly for `true`
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.green,
+                                content: Text("Login Success"),
+                              ),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()),
+                            );
+                          }
+                          //  else {
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     SnackBar(
+                          //       backgroundColor: Colors.red,
+                          //       content:
+                          //           Text("Login failed. Please try again."),
+                          //     ),
+                          //   );
+                          // }
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text("Enter Valid Credentials"),
+                            ),
+                          );
+                        }
+                      },
+                    );
+            }),
             SizedBox(height: 20),
             TextButton(
               onPressed: () {
